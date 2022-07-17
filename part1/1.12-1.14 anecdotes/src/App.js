@@ -34,7 +34,7 @@ const App = () => {
     <div>
       <h1>anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
-      <button onClick={() => handleVote()}>vote</button>
+      <button onClick={handleVote}>vote</button>
       <button onClick={() => setSelected(getRandomInt(anecdotes.length - 1))}>
         next anecdote{' '}
       </button>
