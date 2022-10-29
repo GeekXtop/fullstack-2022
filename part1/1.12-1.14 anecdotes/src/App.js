@@ -1,5 +1,12 @@
 import { useState } from 'react';
 
+const Anecdote = ({ text, vote }) => (
+  <>
+    {text}
+    <div>has {vote} votes</div>
+  </>
+);
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often',
@@ -20,8 +27,12 @@ const App = () => {
       [selected]: isNaN(arr[selected]) ? 1 : arr[selected] + 1,
     });
 
-  const getRandomInt = (max) => {
-    return Math.floor(Math.random() * max);
+  const getRandomInt = () => {
+    let newSelected = selected;
+    while (newSelected === selected) {
+      newSelected = Math.floor(Math.random() * anecdotes.length);
+    }
+    return setSelected(newSelected);
   };
 
   const getMax = () => {
@@ -30,16 +41,16 @@ const App = () => {
   };
 
   console.log('', arr);
+  let k = getMax();
+
   return (
     <div>
       <h1>anecdote of the day</h1>
-      <p>{anecdotes[selected]}</p>
+      <Anecdote text={anecdotes[selected]} vote={arr[selected]} />
       <button onClick={handleVote}>vote</button>
-      <button onClick={() => setSelected(getRandomInt(anecdotes.length - 1))}>
-        next anecdote{' '}
-      </button>
+      <button onClick={getRandomInt}>next anecdote </button>
       <h1>anecdotes with most votes</h1>
-      <p>{anecdotes[getMax()]}</p>
+      <Anecdote text={anecdotes[k]} vote={arr[k]} />
     </div>
   );
 };
